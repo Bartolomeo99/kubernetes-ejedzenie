@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: django-deployment
+  labels:
+    app: django
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: django
+  template:
+    metadata:
+      labels:
+        app: django
+    spec:
+      containers:
+      - name: django
+        image: container_django:24
+        imagePullPolicy: Never
+        # resources:
+        #   limits:
+        #     memory: "1Gi"
+        #     cpu: "1000m"
+        command: ["python","./manage.py", "runserver", "0.0.0.0:8010"]
+        ports:
+        - containerPort: 8010
+        env:
+        - name: POSTGRES_USER
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: user
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-credentials
+              key: password
+        - name: DB_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: variables
+              key: DB_HOST
+
+

@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: variables
+data:
+
+  POSTGRES_USER: postgres
+  POSTGRES_DB: app
+
+  DATABASE: postgres
+  DB_ENGINE: django.db.backends.postgresql
+  DB_NAME: app
+  DB_USER: postgres
+  DB_HOST: postgres-cluster-ip-service
+  DB_PORT: "5432"
