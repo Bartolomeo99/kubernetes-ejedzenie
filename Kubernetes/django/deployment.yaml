@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: django
-        image: container_django:24
+        image: container_django:24 #my image 
         imagePullPolicy: Never
         # resources:
         #   limits:
